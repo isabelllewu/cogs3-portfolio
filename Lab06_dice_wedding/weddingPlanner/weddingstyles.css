@@ -1,0 +1,86 @@
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 30px; 
+    line-height: 1.5;
+    text-align: center;
+    padding: 2%;
+}
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    padding: 2%;
+}
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; 
+    line-height: 1.5;
+    text-align: center;
+}
+p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    padding: 2%;
+}
+.btn {
+    background-color: rgb(255, 153, 235);
+    color: rgb(0, 0, 0);
+}
+.testimonial-image {
+    width: 10%;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.seating-results {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.answer {
+    font-size: 20px;
+}
+
+.jumbotron {
+    background-color: rgb(255, 235, 240);
+}
+.card-title{
+    font-size:20px;
+    font-weight: bold;
+    text-align: left;
+}
+.card-text{
+    font-size: 16px;
+    text-align: left;
+}
+
+#card-button {
+    text-align:left;
+}
+.left-btn {
+margin-left: 0;
+  display: inline-block;
+}
+.carousel-item {
+    padding: 2%; 
+    border: transparent;
+}
+
+.carousel-control-prev {
+ background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.carousel-control-next {
+    background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.carousel-control-prev-icon{
+    filter:invert(1);
+}
+.carousel-control-next-icon {
+  filter: invert();
+}  
