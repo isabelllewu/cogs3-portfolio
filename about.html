@@ -18,6 +18,232 @@
     <link rel="stylesheet" href="css/styles_portfolio_about.css">
 <!--Font Awesome Script-->
   <script src="https://kit.fontawesome.com/2741e2ac58.js" crossorigin="anonymous"></script>
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --border: #e8e4de;
+      --border-hover: #c8c2b8;
+      --text-primary: #1a1714;
+      --text-secondary: #6b6560;
+      --text-muted: #9e9890;
+      --accent: #2d5be3;
+      --accent-light: #eef2fd;
+      --tag-bg: #f0ede8;
+      --tag-text: #5a554e;
+      --figma-purple: #a259ff;
+      --figma-purple-light: #f5eeff;
+      --radius: 14px;
+      --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      padding: 4rem 2rem;
+      min-height: 100vh;
+    }
+
+    .section-header {
+      max-width: 880px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+    }
+
+    .card:hover .arrow {
+      transform: translate(3px, -3px);
+      opacity: 1;
+    }
+
+    .card:hover .preview-overlay {
+      opacity: 1;
+    }
+
+    .preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition);
+    }
+
+    .card:hover .preview img {
+      transform: scale(1.03);
+    }
+
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(45, 91, 227, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .preview-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0ede8 0%, #e8e3dc 100%);
+    }
+
+    .placeholder-icon {
+      opacity: 0.3;
+    }
+
+    .open-badge {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .figma-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--figma-purple);
+    }
+
+    .card-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .arrow {
+      flex-shrink: 0;
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: transform var(--transition), opacity var(--transition);
+      opacity: 0.5;
+      margin-top: 2px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 0.4rem;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      letter-spacing: 0.02em;
+    }
+
+    .tag.figma {
+      background: var(--figma-purple-light);
+      color: var(--figma-purple);
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 2.5rem 1rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
     <!--NAV BAR-->
@@ -36,10 +262,10 @@
                       <a href="about.html" class="nav-link">About</a>
                   </li>
                   <li class="navbar-item">
-                      <a href="projects.html" class="nav-link">Projects</a>
+                      <a href="projects.html" class="nav-link">More</a>
                   </li>
                   <li class="navbar-item">
-                      <a href="https://drive.google.com/file/d/1W-kf7egv5p5IpYLGYWClPhkvcPigEphS/view?usp=sharing" target="_blank" class="nav-link">Resume</a>
+                      <a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a>
                   </li>
               </ul>
           </div>
@@ -52,9 +278,9 @@
   Currently, I'm a student at UC San Diego pursuing a degree in Cognitive Science. <br>
   Through my studies and personal projects, I aim to develop user-centered designs that enhance user experiences and solve real-world problem. <br><br>
 
-  I realized I’m an analytical designer at heart, and UI/UX gave me exactly what I was looking for: <br> a way to merge creativity with problem-solving. That’s why I’m taking COGS 3—to learn the tools and methods that help people create purposeful, intuitive designs that genuinely improve their lives. <br><br>
+  I realized I’m an analytical designer at heart, and UI/UX gave me exactly what I was looking for: <br> a way to merge creativity with problem-solving. <br><br> I've joined a commmunity of designers at UC San Diego, leading workshops and planning industry events to bridge the gap between industry and students! 
 
-  When I'm not designing, I enjoy exploring new places (give me some La Jolla recs!), trying out different cuisines, and spending time with friends and family. <br><br>
+  When I'm not designing, I enjoy exploring new places, trying out different cuisines, and spending time with friends and family. <br><br>
   Feel free to explore my portfolio to see some of my work and learn more about my design philosophy! </p>
   </div>
   <div class="me col">

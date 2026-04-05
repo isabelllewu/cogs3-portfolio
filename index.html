@@ -4,85 +4,332 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isabelle Wu</title>
-        <link rel="icon" type="image/png" href="files/logo.png">
+    <link rel="icon" type="image/png" href="files/logo.png">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <!-- Fonts -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles_portfolio.css">
+
+    <style>
+      /* ── Figma card variables ── */
+      :root {
+        --figma-surface: #ffffff;
+        --figma-border: #e8e4de;
+        --figma-border-hover: #c8c2b8;
+        --figma-bg: #f7f5f2;
+        --figma-text-primary: #1a1714;
+        --figma-text-secondary: #6b6560;
+        --figma-text-muted: #9e9890;
+        --figma-tag-bg: #f0ede8;
+        --figma-tag-text: #5a554e;
+        --figma-purple: #a259ff;
+        --figma-purple-light: #f5eeff;
+        --figma-radius: 14px;
+        --figma-transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* ── Grid ── */
+      .figma-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+
+      /* ── Card ── */
+      .figma-card {
+        background: var(--figma-surface);
+        border: 1px solid var(--figma-border);
+        border-radius: var(--figma-radius);
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        transition: border-color var(--figma-transition), transform var(--figma-transition), box-shadow var(--figma-transition);
+        cursor: pointer;
+      }
+
+      .figma-card:hover {
+        border-color: var(--figma-border-hover);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .figma-card:hover .figma-arrow { transform: translate(3px, -3px); opacity: 1; }
+      .figma-card:hover .figma-overlay { opacity: 1; }
+      .figma-card:hover .figma-thumb { transform: scale(1.03); }
+
+      /* ── Preview ── */
+      .figma-preview {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        background: var(--figma-bg);
+        overflow: hidden;
+      }
+
+      .figma-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform var(--figma-transition);
+      }
+
+      .figma-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f0ede8 0%, #e8e3dc 100%);
+      }
+
+      .figma-placeholder svg { opacity: 0.3; }
+
+      .figma-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(45, 91, 227, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity var(--figma-transition);
+      }
+
+      .figma-badge {
+        background: white;
+        border: 1px solid var(--figma-border);
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--figma-text-primary);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .figma-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--figma-purple);
+        flex-shrink: 0;
+      }
+
+      /* ── Card body ── */
+      .figma-card-body {
+        padding: 1.1rem 1.25rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        flex: 1;
+      }
+
+      .figma-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .figma-card-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--figma-text-primary);
+        line-height: 1.35;
+      }
+
+      .figma-arrow {
+        flex-shrink: 0;
+        font-size: 16px;
+        color: var(--figma-text-muted);
+        transition: transform var(--figma-transition), opacity var(--figma-transition);
+        opacity: 0.5;
+        margin-top: 2px;
+      }
+
+      .figma-card-desc {
+        font-size: 13px;
+        color: var(--figma-text-secondary);
+        line-height: 1.55;
+        font-weight: 300;
+        margin: 0;
+      }
+
+      .figma-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 0.4rem;
+      }
+
+      .figma-tag {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 3px 9px;
+        border-radius: 20px;
+        background: var(--figma-tag-bg);
+        color: var(--figma-tag-text);
+        letter-spacing: 0.02em;
+      }
+
+      .figma-tag.purple {
+        background: var(--figma-purple-light);
+        color: var(--figma-purple);
+      }
+
+     @media (max-width: 908px) {
+      .figma-grid { grid-template-columns: 1fr; padding: 16px; }
+    }
+    </style>
 </head>
 <body>
-    <!--NAV BAR-->
-    <div class = "navbar-container">
-     <nav class="navbar fixed-top navbar-expand-lg navbar-light navbar-style">
-          <a class="navbar-brand" href="#"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" 
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav ml-auto">
-                  <li class="navbar-item">
-                      <a href="index.html" class="nav-link">Home</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="about.html" class="nav-link">About</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="projects.html" class="nav-link">Projects</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="https://drive.google.com/file/d/1W-kf7egv5p5IpYLGYWClPhkvcPigEphS/view?usp=sharing" target="_blank" class="nav-link">Resume</a>
-                  </li>
-              </ul>
-          </div>
-          </div>
-      </nav>
-<!-- GRADIENT BACKGROUND???--> 
-<section id="grad1">
-  <!--INFOOO-->
-  <h1>ISABELLE WU</h1>
- </div>
- <p class="header">aspiring ui/ux designer</p>
-  <p class="header">improving the world through innovative designs.</p>
-</section>
-<!-- CARDS -->
- <section id="website">
-<div class="row mx-md-5">
-  <div class="col-sm-6 px-md-3">
-    <div class="card shadow-sm p-3 mb-5 bg-white website-border">
-      <div class="card-body study-buddy">
-        <h5 class="card-title">Study Buddy Website</h5>
-         <a href="Lab03_studyBuddy/WuLab3.html" target="_blank"> 
-    <img src="files/studybuddypreview.png" class="card-img-top" alt="...">
-</a>
-         <!--insert image here, or somehow preview of website-->
-        <p class="card-text">a website to pair tutors & learners together</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 px-md-3">
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
-      <div class="card-body wedding-planner">
-        <h5 class="card-title">Wedding Planner Website</h5>
-        <a href="Lab06_dice_wedding/weddingPlanner/weddingPlanner_index.html" target="_blank"> 
-    <img src="files/weddingplanner.png" class="card-img-top" alt="...">
-</a>
-        <p class="card-text">helping people plan their dream weddings</p>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
 
-<!--CAROUSEL FIGMA-->
+    <!-- NAV BAR -->
+    <div class="navbar-container">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light navbar-style">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+              aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="navbar-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="navbar-item"><a href="projects.html" class="nav-link">More</a></li>
+                    <li class="navbar-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- HERO -->
+    <section id="grad1">
+        <h1>ISABELLE WU</h1>
+        <p class="header">aspiring ui/ux designer</p>
+        <p class="header">improving the world through innovative designs.</p>
+    </section>
+
+    <!-- FIGMA PROJECT CARDS -->
+    <div class="figma-grid">
+
+        <!-- CARD 1 — replace href with your Figma share link -->
+        <a class="figma-card" href="https://www.figma.com/proto/BqcznQYKyTmj6sSxYizTYq/Mylo?node-id=38-480&t=DTQLNB0XV6osBdUS-1" target="_blank" rel="noopener">
+            <div class="figma-preview">
+                <!-- To use a thumbnail image instead of the placeholder, replace the figma-placeholder div with: -->
+                     <img class="figma-thumb" src="files/mylo.png" alt="Mylo preview" />
+                <div class="figma-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
+                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                    </svg>
+                </div>
+                <div class="figma-overlay">
+                    <div class="figma-badge">
+                        <span class="figma-dot"></span> Open in Figma
+                    </div>
+                </div>
+            </div>
+            <div class="figma-card-body">
+                <div class="figma-card-top">
+                    <span class="figma-card-title">Mylo</span>
+                    <span class="figma-arrow">↗</span>
+                </div>
+                <p class="figma-card-desc">A mobile app created for the Figma Design-a-thon. Helping people understand neuroplasticity.</p>
+                <div class="figma-tags">
+                    <span class="figma-tag purple">FigJam</span>
+                    <span class="figma-tag">Mobile</span>
+                    <span class="figma-tag">UI Design</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- CARD 2 — replace href with your Figma share link -->
+        <a class="figma-card" href="https://www.figma.com/proto/SqDVxi3HbZe7OIzHzsOuyS/Syn1-Final-Project?node-id=131-694&p=f&t=Qr2OHvyipRWaO7kq-1&scaling=scale-down&content-scaling=fixed&page-id=40%3A1382&starting-point-node-id=153%3A2722" target="_blank" rel="noopener">
+            <div class="figma-preview">
+               <img class="figma-thumb" src="files/footprint.png" alt="Footprint preview" />
+                <div class="figma-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
+                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                    </svg>
+                </div>
+                <div class="figma-overlay">
+                    <div class="figma-badge">
+                        <span class="figma-dot"></span> Open in Figma
+                    </div>
+                </div>
+            </div>
+            <div class="figma-card-body">
+                <div class="figma-card-top">
+                    <span class="figma-card-title">Footprint</span>
+                    <span class="figma-arrow">↗</span>
+                </div>
+                <p class="figma-card-desc">A mobile app prototype focused on promoting climate action.</p>
+                <div class="figma-tags">
+                    <span class="figma-tag purple">Figma</span>
+                    <span class="figma-tag">Mobile App</span>
+                    <span class="figma-tag">Prototyping</span>
+                </div>
+            </div>
+        </a>
+        <!-- CARD 3 — replace href, title, and description -->
+        <a class="figma-card" href="https://www.figma.com/proto/8MGovNhsBZMccYA8q0vsWo/WuFigmaLab?node-id=2-56&p=f&t=EnICHwTrABZeBog2-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A6&show-proto-sidebar=1" target="_blank" rel="noopener">
+            <div class="figma-preview">
+                 <img class="figma-thumb" src="files/zenn.png" alt="Zenn preview" />
+                <div class="figma-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
+                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
+                    </svg>
+                </div>
+                <div class="figma-overlay">
+                    <div class="figma-badge">
+                        <span class="figma-dot"></span> Open in Figma
+                    </div>
+                </div>
+            </div>
+            <div class="figma-card-body">
+                <div class="figma-card-top">
+                    <span class="figma-card-title">Zenn</span>
+                    <span class="figma-arrow">↗</span>
+                </div>
+                <p class="figma-card-desc">A health app made in COGS3</p>
+                <div class="figma-tags">
+                    <span class="figma-tag purple">Figma</span>
+                    <span class="figma-tag">Mobile</span>
+                    <span class="figma-tag">Prototyping</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+<!--CAROUSEL FIGMA
 <section id="figma">
   <div id="figmaCarousel" class="carousel slide carousel-fade mx-auto d-block w-100" data-ride="carousel">
 
@@ -209,9 +456,9 @@
     </button>
 
   </div>
-</section>
+</section> -->
 
-<!---VIDEO GAME VIDEO -->
+<!---VIDEO GAME VIDEO 
 <section id = "evershade">
 <div class="row">
   <iframe width="500" height="312"
@@ -220,9 +467,8 @@ src="https://drive.google.com/file/d/1HIjd4T1lnjRO_9b_0B-21d_Xz6ZbnGNj/view?usp=
 <!--<video width="500" height="312" controls>
   <source src="files/evershade.mp4.zip" type="video/mp4">
   Your browser does not support the video tag.
-</video> -->
+</video>
 <p class="evershade-caption col-md-4"><strong>  Watch the demo of Evershade,<br> a 2D pixel quest game. <br> Complete all the tasks <br> to find the treasure! </strong><br><br>Includes a 2D Platformer,<br>  Brick Breaker, <br> and top-down shooter. <br><br> Made in Unity. <br> Coded in C#.</p>
-
 </div>
 </section>
 <!--LINK to PAST PROJECTS-->
