@@ -1,480 +1,625 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isabelle Wu</title>
-    <link rel="icon" type="image/png" href="files/logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabelle Wu</title>
+  <link rel="icon" type="image/png" href="files/logo.png">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/styles_portfolio.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
-    <style>
-      /* ── Figma card variables ── */
-      :root {
-        --figma-surface: #ffffff;
-        --figma-border: #e8e4de;
-        --figma-border-hover: #c8c2b8;
-        --figma-bg: #f7f5f2;
-        --figma-text-primary: #1a1714;
-        --figma-text-secondary: #6b6560;
-        --figma-text-muted: #9e9890;
-        --figma-tag-bg: #f0ede8;
-        --figma-tag-text: #5a554e;
-        --figma-purple: #a259ff;
-        --figma-purple-light: #f5eeff;
-        --figma-radius: 14px;
-        --figma-transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-      }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-      /* ── Grid ── */
-      .figma-grid {
+  <style>
+    /* ════════════════════════════════
+       DESIGN TOKENS
+    ════════════════════════════════ */
+    :root {
+      --bg:           #111213;
+      --surface:      #181a1b;
+      --card:         #1e2022;
+      --border:       #2a2d30;
+      --border-hover: #3d4145;
+
+      --text:         #c8cdd2;
+      --text-dim:     #6b7278;
+      --white:        #eef0f2;
+
+      /* accent — warm silver-blue, NOT green */
+      --accent:       #9db4c0;
+      --accent-dim:   rgba(157,180,192,0.12);
+      --accent-glow:  rgba(157,180,192,0.06);
+
+      --purple:       #a259ff;
+      --purple-light: rgba(162,89,255,0.12);
+
+      --radius:       14px;
+      --ease:         0.22s cubic-bezier(0.4,0,0.2,1);
+
+      --nav-height:   64px;
+    }
+
+    /* ════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      /* subtle grain overlay */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* ════════════════════════════════
+       STANDARDIZED NAV
+       Copy this block to every page
+    ════════════════════════════════ */
+    .navbar-style {
+      background: rgba(17,18,19,0.85) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      padding: 0 2.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white) !important;
+      letter-spacing: 0.06em;
+    }
+
+    .navbar-brand::after { content: 'Isabelle Wu'; }
+
+    .nav-link {
+      font-size: 0.78rem !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      color: var(--text-dim) !important;
+      padding: 0.4rem 1rem !important;
+      transition: color var(--ease) !important;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 1rem; right: 1rem;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform var(--ease);
+      transform-origin: left;
+    }
+
+    .nav-link:hover { color: var(--white) !important; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .navbar-toggler {
+      border-color: var(--border) !important;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(200,205,210,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    #grad1 {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: calc(var(--nav-height) + 4rem) 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* organic gradient blobs */
+    #grad1::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 55% at 75% 25%, rgba(157,180,192,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 15% 75%, rgba(162,89,255,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 50% 55%, rgba(157,180,192,0.04) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* floating orb top-right */
+    #grad1::after {
+      content: '';
+      position: absolute;
+      top: 8%; right: 6%;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(157,180,192,0.06) 0%, transparent 70%);
+      animation: breathe 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50%       { transform: scale(1.12); opacity: 1; }
+    }
+
+    /* SVG blob decoration */
+    .hero-blob {
+      position: absolute;
+      top: 50%; right: 4%;
+      transform: translateY(-50%);
+      width: 340px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.9s ease forwards 0.15s;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+
+    #grad1 h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      margin-bottom: 1.4rem;
+    }
+
+    #grad1 h1 em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 300;
+    }
+
+    .header {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.82rem, 1.5vw, 0.95rem);
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-line {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    /* ════════════════════════════════
+       SECTION LABEL
+    ════════════════════════════════ */
+    .section-label {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3rem 20px 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .section-label.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 80px;
+    }
+
+    /* ════════════════════════════════
+       PROJECT CARDS GRID
+    ════════════════════════════════ */
+    .figma-grid {
       max-width: 1300px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      padding: 20px;
+      padding: 0 20px 80px;
     }
 
-      /* ── Card ── */
-      .figma-card {
-        background: var(--figma-surface);
-        border: 1px solid var(--figma-border);
-        border-radius: var(--figma-radius);
-        overflow: hidden;
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        flex-direction: column;
-        transition: border-color var(--figma-transition), transform var(--figma-transition), box-shadow var(--figma-transition);
-        cursor: pointer;
-      }
-
-      .figma-card:hover {
-        border-color: var(--figma-border-hover);
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.07);
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .figma-card:hover .figma-arrow { transform: translate(3px, -3px); opacity: 1; }
-      .figma-card:hover .figma-overlay { opacity: 1; }
-      .figma-card:hover .figma-thumb { transform: scale(1.03); }
-
-      /* ── Preview ── */
-      .figma-preview {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        background: var(--figma-bg);
-        overflow: hidden;
-      }
-
-      .figma-thumb {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform var(--figma-transition);
-      }
-
-      .figma-placeholder {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #f0ede8 0%, #e8e3dc 100%);
-      }
-
-      .figma-placeholder svg { opacity: 0.3; }
-
-      .figma-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(45, 91, 227, 0.06);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity var(--figma-transition);
-      }
-
-      .figma-badge {
-        background: white;
-        border: 1px solid var(--figma-border);
-        border-radius: 20px;
-        padding: 6px 14px;
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--figma-text-primary);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .figma-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--figma-purple);
-        flex-shrink: 0;
-      }
-
-      /* ── Card body ── */
-      .figma-card-body {
-        padding: 1.1rem 1.25rem 1.25rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.55rem;
-        flex: 1;
-      }
-
-      .figma-card-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 8px;
-      }
-
-      .figma-card-title {
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--figma-text-primary);
-        line-height: 1.35;
-      }
-
-      .figma-arrow {
-        flex-shrink: 0;
-        font-size: 16px;
-        color: var(--figma-text-muted);
-        transition: transform var(--figma-transition), opacity var(--figma-transition);
-        opacity: 0.5;
-        margin-top: 2px;
-      }
-
-      .figma-card-desc {
-        font-size: 13px;
-        color: var(--figma-text-secondary);
-        line-height: 1.55;
-        font-weight: 300;
-        margin: 0;
-      }
-
-      .figma-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: auto;
-        padding-top: 0.4rem;
-      }
-
-      .figma-tag {
-        font-size: 11px;
-        font-weight: 500;
-        padding: 3px 9px;
-        border-radius: 20px;
-        background: var(--figma-tag-bg);
-        color: var(--figma-tag-text);
-        letter-spacing: 0.02em;
-      }
-
-      .figma-tag.purple {
-        background: var(--figma-purple-light);
-        color: var(--figma-purple);
-      }
-
-     @media (max-width: 908px) {
-      .figma-grid { grid-template-columns: 1fr; padding: 16px; }
+    .figma-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+      opacity: 0;
+      transform: translateY(20px);
     }
-    </style>
+
+    .figma-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .figma-card:nth-child(1) { transition-delay: 0.05s; }
+    .figma-card:nth-child(2) { transition-delay: 0.15s; }
+    .figma-card:nth-child(3) { transition-delay: 0.25s; }
+
+    .figma-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px var(--border-hover);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .figma-card:hover .figma-arrow  { transform: translate(3px,-3px); opacity: 1; }
+    .figma-card:hover .figma-overlay { opacity: 1; }
+    .figma-card:hover .figma-thumb  { transform: scale(1.04); }
+
+    /* preview */
+    .figma-preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .figma-thumb {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--ease);
+      filter: brightness(0.9);
+    }
+
+    .figma-card:hover .figma-thumb { filter: brightness(1); }
+
+    .figma-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e2022 0%, #25292c 100%);
+    }
+
+    .figma-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(157,180,192,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+
+    .figma-badge {
+      background: rgba(17,18,19,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .figma-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* card body */
+    .figma-card-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      flex: 1;
+    }
+
+    .figma-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .figma-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+    }
+
+    .figma-arrow {
+      flex-shrink: 0;
+      font-size: 15px;
+      color: var(--accent);
+      transition: transform var(--ease), opacity var(--ease);
+      opacity: 0.4;
+      margin-top: 2px;
+    }
+
+    .figma-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .figma-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .figma-tag {
+      font-size: 11px;
+      font-weight: 400;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .figma-tag.purple {
+      background: var(--purple-light);
+      border-color: rgba(162,89,255,0.25);
+      color: #c49aff;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    #footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════ */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      .figma-grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
+      #grad1 { padding: calc(var(--nav-height) + 3rem) 1.5rem 3rem; }
+      .navbar-style { padding: 0 1.5rem; }
+      .hero-blob { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      #grad1 h1 { font-size: 2.8rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- NAV BAR -->
-    <div class="navbar-container">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light navbar-style">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-              aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav ml-auto">
-                    <li class="navbar-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="navbar-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="navbar-item"><a href="projects.html" class="nav-link">More</a></li>
-                    <li class="navbar-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a></li>
-                </ul>
-            </div>
-        </nav>
+  <!-- ══════════════════════════════
+       STANDARDIZED NAV
+       Copy this exact block to every page.
+       Only change the active link if needed.
+  ══════════════════════════════ -->
+  <div class="navbar-container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-style">
+      <a class="navbar-brand" href="index.html"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="navbar-item"><a href="index.html"   class="nav-link">Home</a></li>
+          <li class="navbar-item"><a href="about.html"   class="nav-link">About</a></li>
+          <li class="navbar-item"><a href="projects.html" class="nav-link">More</a></li>
+          <li class="navbar-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ══════════════════════════════
+       HERO
+  ══════════════════════════════ -->
+  <section id="grad1">
+
+    <!-- decorative blob -->
+    <svg class="hero-blob" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <path d="M320,160 C360,210 370,280 310,330 C250,380 160,370 110,310 C60,250 80,150 140,100 C200,50 280,110 320,160Z" fill="none" stroke="#9db4c0" stroke-width="1.5"/>
+      <path d="M300,180 C330,220 335,270 285,310 C235,350 165,340 125,290 C85,240 105,170 155,130 C205,90 270,140 300,180Z" fill="none" stroke="#9db4c0" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">UI/UX Designer</div>
+      <h1>Isabelle<br>Wu</h1>
+      <p class="header">Hi! I'm currently a UC San Diego student studying Human Computer Interaction and Machine Learning! I'm passionate about the intersection of design and technology, trying to create inclusive and unique user experiences!</p>
+      <div class="hero-line"></div>
     </div>
+  </section>
 
-    <!-- HERO -->
-    <section id="grad1">
-        <h1>ISABELLE WU</h1>
-        <p class="header">aspiring ui/ux designer</p>
-        <p class="header">improving the world through innovative designs.</p>
-    </section>
+  <!-- ══════════════════════════════
+       WORK SECTION
+  ══════════════════════════════ -->
+  <div class="section-label">
+    <span>Selected Work</span>
+    <div class="section-label-line"></div>
+  </div>
 
-    <!-- FIGMA PROJECT CARDS -->
-    <div class="figma-grid">
+  <div class="figma-grid">
 
-        <!-- CARD 1 — replace href with your Figma share link -->
-        <a class="figma-card" href="https://www.figma.com/proto/BqcznQYKyTmj6sSxYizTYq/Mylo?node-id=38-480&t=DTQLNB0XV6osBdUS-1" target="_blank" rel="noopener">
-            <div class="figma-preview">
-                <!-- To use a thumbnail image instead of the placeholder, replace the figma-placeholder div with: -->
-                     <img class="figma-thumb" src="files/mylo.png" alt="Mylo preview" />
-                <div class="figma-placeholder">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
-                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                    </svg>
-                </div>
-                <div class="figma-overlay">
-                    <div class="figma-badge">
-                        <span class="figma-dot"></span> Open in Figma
-                    </div>
-                </div>
-            </div>
-            <div class="figma-card-body">
-                <div class="figma-card-top">
-                    <span class="figma-card-title">Mylo</span>
-                    <span class="figma-arrow">↗</span>
-                </div>
-                <p class="figma-card-desc">A mobile app created for the Figma Design-a-thon. Helping people understand neuroplasticity.</p>
-                <div class="figma-tags">
-                    <span class="figma-tag purple">FigJam</span>
-                    <span class="figma-tag">Mobile</span>
-                    <span class="figma-tag">UI Design</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- CARD 2 — replace href with your Figma share link -->
-        <a class="figma-card" href="https://www.figma.com/proto/SqDVxi3HbZe7OIzHzsOuyS/Syn1-Final-Project?node-id=131-694&p=f&t=Qr2OHvyipRWaO7kq-1&scaling=scale-down&content-scaling=fixed&page-id=40%3A1382&starting-point-node-id=153%3A2722" target="_blank" rel="noopener">
-            <div class="figma-preview">
-               <img class="figma-thumb" src="files/footprint.png" alt="Footprint preview" />
-                <div class="figma-placeholder">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
-                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                    </svg>
-                </div>
-                <div class="figma-overlay">
-                    <div class="figma-badge">
-                        <span class="figma-dot"></span> Open in Figma
-                    </div>
-                </div>
-            </div>
-            <div class="figma-card-body">
-                <div class="figma-card-top">
-                    <span class="figma-card-title">Footprint</span>
-                    <span class="figma-arrow">↗</span>
-                </div>
-                <p class="figma-card-desc">A mobile app prototype focused on promoting climate action.</p>
-                <div class="figma-tags">
-                    <span class="figma-tag purple">Figma</span>
-                    <span class="figma-tag">Mobile App</span>
-                    <span class="figma-tag">Prototyping</span>
-                </div>
-            </div>
-        </a>
-        <!-- CARD 3 — replace href, title, and description -->
-        <a class="figma-card" href="https://www.figma.com/proto/8MGovNhsBZMccYA8q0vsWo/WuFigmaLab?node-id=2-56&p=f&t=EnICHwTrABZeBog2-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A6&show-proto-sidebar=1" target="_blank" rel="noopener">
-            <div class="figma-preview">
-                 <img class="figma-thumb" src="files/zenn.png" alt="Zenn preview" />
-                <div class="figma-placeholder">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <rect x="8" y="8" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="8" width="14" height="14" rx="7" fill="#a259ff"/>
-                        <rect x="8" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                        <rect x="26" y="26" width="14" height="14" rx="3" fill="#1a1714"/>
-                    </svg>
-                </div>
-                <div class="figma-overlay">
-                    <div class="figma-badge">
-                        <span class="figma-dot"></span> Open in Figma
-                    </div>
-                </div>
-            </div>
-            <div class="figma-card-body">
-                <div class="figma-card-top">
-                    <span class="figma-card-title">Zenn</span>
-                    <span class="figma-arrow">↗</span>
-                </div>
-                <p class="figma-card-desc">A health app made in COGS3</p>
-                <div class="figma-tags">
-                    <span class="figma-tag purple">Figma</span>
-                    <span class="figma-tag">Mobile</span>
-                    <span class="figma-tag">Prototyping</span>
-                </div>
-            </div>
-        </a>
-
-    </div>
-
-<!--CAROUSEL FIGMA
-<section id="figma">
-  <div id="figmaCarousel" class="carousel slide carousel-fade mx-auto d-block w-100" data-ride="carousel">
-
-    <ol class="carousel-indicators">
-      <li data-target="#figmaCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#figmaCarousel" data-slide-to="1"></li>
-      <li data-target="#figmaCarousel" data-slide-to="2"></li>
-      <li data-target="#figmaCarousel" data-slide-to="3"></li>
-      <li data-target="#figmaCarousel" data-slide-to="4"></li>
-      <li data-target="#figmaCarousel" data-slide-to="5"></li>
-      <li data-target="#figmaCarousel" data-slide-to="6"></li>
-      <li data-target="#figmaCarousel" data-slide-to="7"></li>
-      <li data-target="#figmaCarousel" data-slide-to="8"></li> </ol>
-
-    <div class="carousel-inner">
-
-      <div class="carousel-item active">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/one.jpg" class="img-fluid" alt="Figma Slide 1"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Questionnaire Page</h6>
-            <p class="figma-body">This is the first screen for first-time users of Zenn. <br> We hope to ask them a few questions to tailor their app for them.</p>
-          </div></div>
+    <!-- CARD 1 — Mylo (opens Figma) -->
+    <a class="figma-card" href="https://www.figma.com/proto/BqcznQYKyTmj6sSxYizTYq/Mylo?node-id=38-480&t=DTQLNB0XV6osBdUS-1" target="_blank" rel="noopener">
+      <div class="figma-preview">
+        <img class="figma-thumb" src="files/mylo.png" alt="Mylo preview">
+        <div class="figma-placeholder"></div>
+        <div class="figma-overlay">
+          <div class="figma-badge"><span class="figma-dot"></span> Open in Figma</div>
         </div>
       </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/two.jpg" class="img-fluid" alt="Figma Slide 2"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Log In</h6>
-            <p>Log in screen for our regular users.</p>
-          </div></div>
+      <div class="figma-card-body">
+        <div class="figma-card-top">
+          <span class="figma-card-title">Mylo</span>
+          <span class="figma-arrow">↗</span>
+        </div>
+        <p class="figma-card-desc">A mobile app created for the Figma Design-a-thon. Helping people understand neuroplasticity.</p>
+        <div class="figma-tags">
+          <span class="figma-tag purple">FigJam</span>
+          <span class="figma-tag">Mobile</span>
+          <span class="figma-tag">UI Design</span>
         </div>
       </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/three.jpg" class="img-fluid" alt="Figma Slide 3"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Home Screen</h6>
-            <p class="figma-body">Showcasing the display & prompts the user can interact with.</p>
-          </div></div>
-        </div>
-      </div>
+    </a>
 
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/four.jpg" class="img-fluid" alt="Figma Slide 4"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>User Insight</h6>
-            <p class="figma-body">Press on the insight button on the home page takes you to the user's mood history to track progress.</p>
-          </div></div>
+    <!-- CARD 2 — Footprint (opens case study) -->
+    <a class="figma-card" href="case-study-footprint.html">
+      <div class="figma-preview">
+        <img class="figma-thumb" src="files/footprint.png" alt="Footprint preview">
+        <div class="figma-placeholder"></div>
+        <div class="figma-overlay">
+          <div class="figma-badge"><span class="figma-dot"></span> View Case Study</div>
         </div>
       </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/five.jpg" class="img-fluid" alt="Figma Slide 5"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Weekly Progress</h5>
-            <p class="figma-body"> Allows the user to see their progress completed for the week on the Progress Page.</p>
-          </div></div>
+      <div class="figma-card-body">
+        <div class="figma-card-top">
+          <span class="figma-card-title">Footprint</span>
+          <span class="figma-arrow">↗</span>
+        </div>
+        <p class="figma-card-desc">A mobile app prototype focused on promoting climate action.</p>
+        <div class="figma-tags">
+          <span class="figma-tag purple">Figma</span>
+          <span class="figma-tag">Mobile App</span>
+          <span class="figma-tag">Prototyping</span>
         </div>
       </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/six.jpg" class="img-fluid" alt="Figma Slide 6"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Explore</h6>
-            <p class="figma-body">User can explore different wellness excercises targeting various categories.</p>
-          </div></div>
-        </div>
-      </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/seven.jpg" class="img-fluid" alt="Figma Slide 7"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Profile</h6>
-            <p class="figma-body">User can see statistics & progress in their Profile page.</p>
-          </div></div>
-        </div>
-      </div>
-      
-      <div class="carousel-item">
-        <div class="row custom-carousel-split">
-          <div class="col-md-6"><img src="files/WuFigmaLab/eight.jpg" class="img-fluid" alt="Figma Slide 8"></div>
-          <div class="col-md-6 d-flex align-items-center"><div class="caption-content">
-            <h6>Menu Overlay</h6>
-            <p class="figma-body">Overlay screen to allow users to adjust settings or to log out.</p>
-          </div></div>
-        </div>
-      </div>
+    </a>
 
-    
-
-      <div class="carousel-item video-slide">
-        <div class="caption-content figma-caption text-center mb-3">
-      <h6>Prototype Demo</h6>
-      </div>
-          <div class="video-wrapper">
-        <video class="figma-video" controls>
-          <source src="files/WuFigmaLab/figmademo.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        </div>
-  
-        <div class="caption-content figma-caption text-center">
-            <p class="figma-body">
-              Watch a quick demonstration of the application's user interactions.
-            </p>
+    <!-- CARD 3 — Zenn (opens Figma) -->
+    <a class="figma-card" href="https://www.figma.com/proto/8MGovNhsBZMccYA8q0vsWo/WuFigmaLab?node-id=2-56&p=f&t=EnICHwTrABZeBog2-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A6&show-proto-sidebar=1" target="_blank" rel="noopener">
+      <div class="figma-preview">
+        <img class="figma-thumb" src="files/zenn.png" alt="Zenn preview">
+        <div class="figma-placeholder"></div>
+        <div class="figma-overlay">
+          <div class="figma-badge"><span class="figma-dot"></span> Open in Figma</div>
         </div>
       </div>
-
-    </div> <button class="carousel-control-prev" type="button" data-target="#figmaCarousel" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-target="#figmaCarousel" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </button>
+      <div class="figma-card-body">
+        <div class="figma-card-top">
+          <span class="figma-card-title">Zenn</span>
+          <span class="figma-arrow">↗</span>
+        </div>
+        <p class="figma-card-desc">A health app made in COGS3.</p>
+        <div class="figma-tags">
+          <span class="figma-tag purple">Figma</span>
+          <span class="figma-tag">Mobile</span>
+          <span class="figma-tag">Prototyping</span>
+        </div>
+      </div>
+    </a>
 
   </div>
-</section> -->
 
-<!---VIDEO GAME VIDEO 
-<section id = "evershade">
-<div class="row">
-  <iframe width="500" height="312"
-src="https://drive.google.com/file/d/1HIjd4T1lnjRO_9b_0B-21d_Xz6ZbnGNj/view?usp=sharing">
-</iframe>
-<!--<video width="500" height="312" controls>
-  <source src="files/evershade.mp4.zip" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<p class="evershade-caption col-md-4"><strong>  Watch the demo of Evershade,<br> a 2D pixel quest game. <br> Complete all the tasks <br> to find the treasure! </strong><br><br>Includes a 2D Platformer,<br>  Brick Breaker, <br> and top-down shooter. <br><br> Made in Unity. <br> Coded in C#.</p>
-</div>
-</section>
-<!--LINK to PAST PROJECTS-->
-<!--link to Projects? html code -->
-<footer id="footer">
-  <p>I'm glad you're here. Explore the other tabs to learn more.<br>
-</footer>
+  <footer id="footer">
+    I'm glad you're here. Explore the other tabs to learn more.
+  </footer>
+
+  <script>
+    // Scroll reveal for cards + section label
+    const revealEls = document.querySelectorAll('.figma-card, .section-label');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
 </body>
 </html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabelle Wu</title>
+    <link rel="icon" type="image/png" href="files/logo.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0a;
+    --surface: #111811;
+    --card: #161e16;
+    --border: #1f2e1f;
+    --green: #b8f04a;
+    --green-dim: #7aaa28;
+    --green-muted: rgba(184,240,74,0.1);
+    --white: #f0f5e8;
+    --muted: #6b7f5e;
+    --text: #cdd9c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ════════════════════════════════
+       STANDARDIZED NAV
+       Copy this block to every page
+    ════════════════════════════════ */
+    .navbar-style {
+      background: rgba(17,18,19,0.85) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      padding: 0 2.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white) !important;
+      letter-spacing: 0.06em;
+    }
+
+    .navbar-brand::after { content: 'Isabelle Wu'; }
+
+    .nav-link {
+      font-size: 0.78rem !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      color: var(--text-dim) !important;
+      padding: 0.4rem 1rem !important;
+      transition: color var(--ease) !important;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 1rem; right: 1rem;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform var(--ease);
+      transform-origin: left;
+    }
+
+    .nav-link:hover { color: var(--white) !important; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .navbar-toggler {
+      border-color: var(--border) !important;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(200,205,210,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(184,240,74,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(184,240,74,0.06) 0%, transparent 60%),
+      var(--bg);
+    z-index: 0;
+  }
+
+  /* Decorative leaf shapes */
+  .leaf-deco {
+    position: absolute;
+    top: 12%;
+    right: 8%;
+    width: 340px;
+    height: 340px;
+    opacity: 0.18;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.9s ease forwards 0.2s;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid rgba(184,240,74,0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--green);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    text-transform: lowercase;
+  }
+
+  .hero-sub-line {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item { }
+  .hero-meta-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .hero-meta-value {
+    font-size: 0.92rem;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.2s;
+  }
+
+  .scroll-hint span {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--green), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 3rem 8rem;
+  }
+
+  .section {
+    padding-top: 5rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  .section h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .section p {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+    font-weight: 300;
+    max-width: 660px;
+    line-height: 1.8;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--green-muted);
+    border: 1px solid rgba(184,240,74,0.2);
+    border-left: 3px solid var(--green);
+    border-radius: 0 10px 10px 0;
+    padding: 1.4rem 1.8rem;
+    margin: 1.5rem 0;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--white);
+    line-height: 1.6;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+
+  .stat {
+    background: var(--card);
+    padding: 1.8rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--green);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-top: 0.3rem;
+  }
+
+  /* PROCESS TIMELINE */
+  .timeline {
+    position: relative;
+    margin-top: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .timeline-dot {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--green);
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: var(--green-muted);
+    border-color: var(--green);
+  }
+
+  .timeline-body {
+    padding-top: 0.4rem;
+    flex: 1;
+  }
+
+  .timeline-body h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .timeline-body p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0;
+    max-width: 100%;
+    line-height: 1.6;
+  }
+
+  /* FEATURE GRID */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.6rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(184,240,74,0.3);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+    max-width: 100%;
+    line-height: 1.6;
+  }
+
+  /* TAGS */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--card);
+  }
+
+  .tag.green {
+    border-color: rgba(184,240,74,0.3);
+    color: var(--green);
+    background: var(--green-muted);
+  }
+
+  /* REFLECTION */
+  .reflection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .reflection-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.6rem;
+  }
+
+  .reflection-card .r-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.7rem;
+  }
+
+  .reflection-card p {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin: 0;
+    max-width: 100%;
+    line-height: 1.7;
+  }
+
+  /* NEXT PROJECT */
+  .next-project {
+    margin-top: 5rem;
+    padding: 3rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    transition: border-color 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s;
+  }
+
+  .next-project.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .next-project:hover {
+    border-color: rgba(184,240,74,0.3);
+  }
+
+  .next-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .next-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .next-arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .next-project:hover .next-arrow {
+    background: var(--green-muted);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .content { padding: 0 1.5rem 5rem; }
+    .stats-row { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .reflection-grid { grid-template-columns: 1fr; }
+    .next-project { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+    
+<!--NAVIGATION CLAUDE-->
+<div class="navbar-container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-style">
+      <a class="navbar-brand" href="index.html"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="navbar-item"><a href="index.html"   class="nav-link">Home</a></li>
+          <li class="navbar-item"><a href="about.html"   class="nav-link">About</a></li>
+          <li class="navbar-item"><a href="projects.html" class="nav-link">More</a></li>
+          <li class="navbar-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Decorative SVG leaves -->
+  <svg class="leaf-deco" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M280 60 C280 60 320 160 220 240 C120 320 40 280 40 280 C40 280 80 160 180 100 C240 60 280 60 280 60Z" stroke="#b8f04a" stroke-width="2.5" fill="none"/>
+    <path d="M160 280 L280 60" stroke="#b8f04a" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <path d="M200 120 C200 120 240 200 160 260" stroke="#b8f04a" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="280" cy="60" r="5" fill="#b8f04a" opacity="0.6"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-tag">Class Assignment · Mobile App · 2026</div>
+    <h1>footprint</h1>
+    <p class="hero-sub-line">A climate action tracker designed to make sustainability personal.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Role</div>
+        <div class="hero-meta-value">Designer</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Platform</div>
+        <div class="hero-meta-value">iOS & Android</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Tools</div>
+        <div class="hero-meta-value">Figma · Prototyping</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Deliverable</div>
+        <div class="hero-meta-value">Full UI Design</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-num">01</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>The Problem</h2>
+    <p>Climate change is one of the most urgent issues of our time — yet most people feel powerless to act. Existing tools are either too complex, too guilt-driven, or fail to connect individual behavior to real-world impact.</p>
+    <div class="highlight-box">
+      "How might we help everyday people understand and reduce their personal carbon footprint in a way that feels motivating, not overwhelming?"
+    </div>
+    <p>This project was completed as a class assignment with a brief to design a mobile app that promotes positive climate action through behavior change.</p>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-num">02</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Project Goal</h2>
+    <p>The project aimed to effectively communicate about climate change through different mediums that each student was passionate about.</p>
+
+  <!-- PROCESS -->
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-num">03</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Design Process</h2>
+    <p>Working solo across the full design lifecycle — from early sketches to a polished, interactive prototype.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">01</div>
+        <div class="timeline-body">
+          <h4>Define & Scope</h4>
+          <p>Identified scope of app, needed to personalize the data to the user's lifestyle, mapped out core features that would be needed.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">02</div>
+        <div class="timeline-body">
+          <h4>Competitive Audit</h4>
+          <p>Analyzed 3 existing climate apps to identify UX failures, unmet needs, and design patterns worth adopting or avoiding.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">03</div>
+        <div class="timeline-body">
+          <h4>Wireframes</h4>
+          <p>Sketched low-fidelity flows for onboarding, the home dashboard, and the impact summary screen. Iterated on information hierarchy before moving to visual design.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">04</div>
+        <div class="timeline-body">
+          <h4>Visual Design System</h4>
+          <p>Moodboarded to collect design systems. Opted for high-contrast accents & <b>footprint</b> inspired leaves to represent the environmental theme of the brand.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">05</div>
+        <div class="timeline-body">
+          <h4>High-Fidelity Prototype</h4>
+          <p>Produced full UI screens for iOS and Android, including onboarding, home feed, habit log, progress tracking, and settings. Linked screens into an interactive Figma prototype.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-num">04</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Key Design Decisions</h2>
+    <p>Each screen was designed to not make the user feel guilty, but to inform and make them feel like they <b>are</b> making an <b>impact</b></p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌱</span>
+        <h4>Impact-First Home Screen</h4>
+        <p>The dashboard leads with what you've saved this week — trees, emissions, miles — before showing what to do next. Positive reinforcement first.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📋</span>
+        <h4>One-Tap Habit Logging</h4>
+        <p>Reduced tracking friction to a single tap per habit. No forms, no calculations — the app handles the math behind the scenes.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📈</span>
+        <h4>Weekly Progress View</h4>
+        <p>A simple visual chart showing carbon impact over time, designed to reveal trends without overwhelming users with data.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h4>Personalized Action Plans</h4>
+        <p>Onboarding asks 3 lifestyle questions and generates a custom set of habits, making the app feel relevant from day one.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-num">05</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Reflection & Next Steps</h2>
+    <p>As a solo concept project, this pushed me to make every design decision independently and explain my choices, as I had to with my professor. </p>
+
+    <div class="reflection-grid">
+      <div class="reflection-card">
+        <div class="r-label">What I learned</div>
+        <p>Designing to show collective activism requires a lot of data gathering.</p>
+      </div>
+      <div class="reflection-card">
+        <div class="r-label">What I'm proud of</div>
+        <p>The visual design system — dark, organic, and high-contrast — felt intentional and differentiated from the generic "eco green" look most climate apps default to.</p>
+      </div>
+      <div class="reflection-card">
+        <div class="r-label">What I'd do differently</div>
+        <p>I'd run usability testing with real users — even informal sessions — to validate that the one-tap logging actually reduces friction as intended.</p>
+      </div>
+      <div class="reflection-card">
+        <div class="r-label">If this were real</div>
+        <p>I'd explore a social layer — sharing streaks, group challenges — since research shows community accountability significantly improves habit retention.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a href="case-study-zenn.html" class="next-project section">
+    <div>
+      <div class="next-label">Next Project</div>
+      <div class="next-title">Zenn — Health Tracker</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+</div>
+
+<footer>
+  Designed & built with care · UX Portfolio 2024
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
+</body>
+</html>
