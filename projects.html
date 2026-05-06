@@ -1,173 +1,742 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-        <link rel="icon" type="image/png" href="files/logo.png">
-     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <!--Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/styles_portfolio_projects.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects – Isabelle Wu</title>
+  <link rel="icon" type="image/png" href="files/logo.png">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ════════════════════════════════
+       DESIGN TOKENS (identical to index)
+    ════════════════════════════════ */
+    :root {
+      --bg:           #111213;
+      --surface:      #181a1b;
+      --card:         #1e2022;
+      --border:       #2a2d30;
+      --border-hover: #3d4145;
+
+      --text:         #c8cdd2;
+      --text-dim:     #6b7278;
+      --white:        #eef0f2;
+
+      --accent:       #9db4c0;
+      --accent-dim:   rgba(157,180,192,0.12);
+      --accent-glow:  rgba(157,180,192,0.06);
+
+      --purple:       #a259ff;
+      --purple-light: rgba(162,89,255,0.12);
+
+      --radius:       14px;
+      --ease:         0.22s cubic-bezier(0.4,0,0.2,1);
+      --nav-height:   64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* ════════════════════════════════
+       NAV (identical to index)
+    ════════════════════════════════ */
+    .navbar-style {
+      background: rgba(17,18,19,0.85) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      padding: 0 2.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white) !important;
+      letter-spacing: 0.06em;
+    }
+
+    .navbar-brand::after { content: 'Isabelle Wu'; }
+
+    .nav-link {
+      font-size: 0.78rem !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      color: var(--text-dim) !important;
+      padding: 0.4rem 1rem !important;
+      transition: color var(--ease) !important;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 1rem; right: 1rem;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform var(--ease);
+      transform-origin: left;
+    }
+
+    .nav-link:hover { color: var(--white) !important; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .navbar-toggler { border-color: var(--border) !important; }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(200,205,210,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* ════════════════════════════════
+       PAGE HEADER
+    ════════════════════════════════ */
+    .page-hero {
+      padding: calc(var(--nav-height) + 4rem) 3rem 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.9s ease forwards 0.15s;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+
+    .page-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+    }
+
+    .page-hero p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      max-width: 520px;
+    }
+
+    /* ════════════════════════════════
+       SECTION LABEL
+    ════════════════════════════════ */
+    .section-label {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3rem 20px 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .section-label.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 80px;
+    }
+
+    /* ════════════════════════════════
+       GRID
+    ════════════════════════════════ */
+    .proj-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 20px 60px;
+    }
+
+    /* ════════════════════════════════
+       PROJECT CARDS
+    ════════════════════════════════ */
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .proj-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proj-card:nth-child(1) { transition-delay: 0.05s; }
+    .proj-card:nth-child(2) { transition-delay: 0.15s; }
+    .proj-card:nth-child(3) { transition-delay: 0.25s; }
+    .proj-card:nth-child(4) { transition-delay: 0.35s; }
+    .proj-card:nth-child(5) { transition-delay: 0.45s; }
+    .proj-card:nth-child(6) { transition-delay: 0.55s; }
+
+    .proj-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px var(--border-hover);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .proj-card:hover .proj-arrow  { transform: translate(3px,-3px); opacity: 1; }
+    .proj-card:hover .proj-overlay { opacity: 1; }
+    .proj-card:hover .proj-thumb  { transform: scale(1.04); filter: brightness(1); }
+
+    /* preview */
+    .proj-preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .proj-thumb {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--ease), filter var(--ease);
+      filter: brightness(0.88);
+    }
+
+    .proj-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* colored placeholder backgrounds per card type */
+    .placeholder-web   { background: linear-gradient(135deg, #1a2030 0%, #1e2535 100%); }
+    .placeholder-art   { background: linear-gradient(135deg, #1e1a22 0%, #231e2a 100%); }
+    .placeholder-char  { background: linear-gradient(135deg, #1c1c1c 0%, #212121 100%); }
+    .placeholder-mixed { background: linear-gradient(135deg, #1a1e20 0%, #1e2428 100%); }
+
+    .proj-placeholder-icon {
+      font-size: 2rem;
+      opacity: 0.2;
+    }
+
+    .proj-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(157,180,192,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+
+    .proj-badge {
+      background: rgba(17,18,19,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .proj-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* card body */
+    .proj-card-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      flex: 1;
+    }
+
+    .proj-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .proj-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+    }
+
+    .proj-arrow {
+      flex-shrink: 0;
+      font-size: 15px;
+      color: var(--accent);
+      transition: transform var(--ease), opacity var(--ease);
+      opacity: 0.4;
+      margin-top: 2px;
+    }
+
+    .proj-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .proj-tag {
+      font-size: 11px;
+      font-weight: 400;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .proj-tag.purple {
+      background: var(--purple-light);
+      border-color: rgba(162,89,255,0.25);
+      color: #c49aff;
+    }
+
+    .proj-tag.accent {
+      background: var(--accent-dim);
+      border-color: rgba(157,180,192,0.25);
+      color: var(--accent);
+    }
+
+    /* ════════════════════════════════
+       ARTWORK GRID (3-col for charcoal)
+    ════════════════════════════════ */
+    .proj-grid-3 {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0 20px 60px;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    #footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════ */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      .proj-grid, .proj-grid-3 { grid-template-columns: 1fr; padding: 0 16px 60px; }
+      .page-hero { padding: calc(var(--nav-height) + 2.5rem) 1.5rem 2rem; }
+      .navbar-style { padding: 0 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <!--NAV BAR-->
-     <nav class="navbar fixed-top navbar-expand-lg navbar-light navbar-style">
-          <a class="navbar-brand" href="#"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" 
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav ml-auto">
-                  <li class="navbar-item">
-                      <a href="index.html" class="nav-link">Home</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="about.html" class="nav-link">About</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="projects.html" class="nav-link">More</a>
-                  </li>
-                  <li class="navbar-item">
-                      <a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a>
-                  </li>
-              </ul>
-          </div>
-      </nav>
-    
-    <!--CARD for T-->
-    <section id="artwork">
-    <h2> SELECTED WORKS </h2>
-    <!-- CARDS -->
- <section id="website">
-  <h3> COGS3 Projects</h3>
-<div class="row mx-md-5">
-  <div class="col-sm-6 px-md-3">
-    <div class="card shadow-sm p-3 mb-5 bg-white website-border">
-      <div class="card-body study-buddy">
-        <h5 class="card-title">Study Buddy Website</h5>
-         <a href="Lab03_studyBuddy/WuLab3.html" target="_blank"> 
-    <img src="files/studybuddypreview.png" class="card-img-top" alt="...">
-</a>
-         <!--insert image here, or somehow preview of website-->
-        <p class="card-text">a website to pair tutors & learners together <br> made with HTML & CSS</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 px-md-3">
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
-      <div class="card-body wedding-planner">
-        <h5 class="card-title">Wedding Planner Website</h5>
-        <a href="Lab06_dice_wedding/weddingPlanner/weddingPlanner_index.html" target="_blank"> 
-    <img src="files/weddingplanner.png" class="card-img-top" alt="...">
-</a>
-        <p class="card-text">helping people plan their dream weddings<br> made in JavaScript</p>
-      </div>
-    </div>
-  </div>
-</div>
-</section> 
-<h2> Traditional Artworks</h2>
-    <h4> Most of these artworks explore the potential impacts on our environment through human disregard for Earth.<br> Utilizing my compost bin, looking at my bathroom, and inspired by recent events of oil spills,<br> I focused on the various aspects of our environment that humans disregard.  </h4>
-     <!-- fix margin for selected works header-->
-    <div class="container">
-    <div class="row mx-md-2">
-  <div class="col-sm-6 px-md-2">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Self-Portrait</h5>
-    <img src="files/selfportrait.png" class="card-img-top" alt="...">
-</a>
-        <p class="card-text"><strong> self-portrait </strong> <br> made on canvas, with acrylic.</p>
-      </div>
-    </div>
-  </div>
- <div class="col-md-6">
-      <div class="row about">
-        
-        <div class="col-12 mb-3">
-        <div class="card">
-             <div class="card-body">
-          <div class="image-container-sm">
-            <h5 class="card-title">Pots & Pans</h5>
-    <img src="files/Compost.jpg" class="img-fluid" alt="Bottom stacked image">
-</a>
-             <p class="card-text"> <strong> the state of my kitchen </strong> <br> made with color pencils.</p>
-          </div>
-        </div>
-        </div>
-        </div>
 
-        <div class="col-12">
-        <div class="card">
-             <div class="card-body">
-          <div class="image-container-sm">
-            <h5 class="card-title">The Girl at the Museum</h5>
-    <img src="files/TheGirlAttheMuseum.jpg" class="img-fluid" alt="Bottom stacked image">
-</a>
- <p class="card-text"> <strong> a dystopian world where plants no longer exist, only fossilized in museums</strong> <br> made in Procreate.</p>
-          </div>
-        </div>
-        </div>
-        </div>
+  <!-- ══════════════════════════════
+       NAV
+  ══════════════════════════════ -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-style">
+    <a class="navbar-brand" href="index.html"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+      aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="navbar-item"><a href="index.html"    class="nav-link">Home</a></li>
+        <li class="navbar-item"><a href="about.html"    class="nav-link">About</a></li>
+        <li class="navbar-item"><a href="projects.html" class="nav-link">More</a></li>
+        <li class="navbar-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" class="nav-link">Resume</a></li>
+      </ul>
+    </div>
+  </nav>
 
+  <!-- ══════════════════════════════
+       PAGE HEADER
+  ══════════════════════════════ -->
+  <div class="page-hero">
+    <div class="hero-eyebrow">More Work</div>
+    <h1>Selected<br>Works</h1>
+    <p>A collection of web projects, traditional artworks, charcoal studies, and mixed media explorations.</p>
+  </div>
+
+  <!-- ══════════════════════════════
+       COGS3 WEB PROJECTS
+  ══════════════════════════════ -->
+  <div class="section-label">
+    <span>COGS3 Projects</span>
+    <div class="section-label-line"></div>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- Study Buddy -->
+    <a class="proj-card" href="Lab03_studyBuddy/WuLab3.html" target="_blank" rel="noopener">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/studybuddypreview.png" alt="Study Buddy preview">
+        <div class="proj-placeholder placeholder-web"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View Project</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Study Buddy Website</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-card-desc">A website to pair tutors &amp; learners together.</p>
+        <div class="proj-tags">
+          <span class="proj-tag accent">HTML</span>
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">Web</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Wedding Planner -->
+    <a class="proj-card" href="Lab06_dice_wedding/weddingPlanner/weddingPlanner_index.html" target="_blank" rel="noopener">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/weddingplanner.png" alt="Wedding Planner preview">
+        <div class="proj-placeholder placeholder-web"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View Project</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Wedding Planner Website</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-card-desc">Helping people plan their dream weddings.</p>
+        <div class="proj-tags">
+          <span class="proj-tag accent">JavaScript</span>
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">Web</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ══════════════════════════════
+       TRADITIONAL ARTWORKS
+  ══════════════════════════════ -->
+  <div class="section-label">
+    <span>Traditional Artworks</span>
+    <div class="section-label-line"></div>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- Self-Portrait -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/selfportrait.png" alt="Self-portrait">
+        <div class="proj-placeholder placeholder-art"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Self-Portrait</span>
+        </div>
+        <p class="proj-card-desc">A self-portrait made on canvas with acrylic.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Acrylic</span>
+          <span class="proj-tag">Canvas</span>
+        </div>
       </div>
     </div>
-  </div>
-  <!--NEW ROW - CHARCOAL -->
-  <h2> Charcoal Works </h2>
- <div class="card-deck my-sm-5">
-  <div class="card shadow-sm p-3 mb-5 bg-white rounded charcoal">
-    <img src="files/TipoftheIceberg.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Tip of the Iceberg</h5>
-      <p class="card-text"> <strong>climate change implications</strong> <br> made with charcoal.</p>
-    </div>
-  </div>
-  <div class="card shadow-sm p-3 mb-5 bg-white rounded charcoal">
-    <img src="files/portraitofmyfather.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Father's Hard Work</h5>
-      <p class="card-text"> <strong>the wrinkles that highlight his perserverance over the years</strong> <br> made with charcoal.</p></p>
-    </div>
-  </div>
-  <div class="card shadow-sm p-3 mb-5 bg-white rounded charcoal">
-    <img src="files/TheSwingIUsedtoPlayAt.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">The Swing I Used to Play At</h5>
-      <p class="card-text"> <strong>the torn down tree where I used to play on the swing</strong> <br> made with charcoal.</p>
-    </div>
-  </div>
-</div>
-<!--MIXED MEDIA???-->
- <h2> Mixed Media </h2>
-<div class="row row-cols-1 row-cols-md-2">
-  <div class="col mb-4">
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
-      <img src="files/bathroomin2050.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Bathroom in 2050</h5>
-        <p class="card-text">made on cardboard, hot glue, color pencil.</p>
+
+    <!-- Pots & Pans -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/Compost.jpg" alt="Pots and Pans">
+        <div class="proj-placeholder placeholder-art"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Pots &amp; Pans</span>
+        </div>
+        <p class="proj-card-desc">The state of my kitchen — made with color pencils.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Color Pencil</span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col mb-4">
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
-      <img src="files/HappyChineseNewYear.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Happy Chinese New Year</h5>
-        <p class="card-text"> made with hot glue, watercolor, color pencil.</p>
+
+    <!-- The Girl at the Museum -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/TheGirlAttheMuseum.jpg" alt="The Girl at the Museum">
+        <div class="proj-placeholder placeholder-art"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">The Girl at the Museum</span>
+        </div>
+        <p class="proj-card-desc">A dystopian world where plants no longer exist, only fossilized in museums.</p>
+        <div class="proj-tags">
+          <span class="proj-tag purple">Procreate</span>
+          <span class="proj-tag">Digital</span>
+        </div>
       </div>
     </div>
+
   </div>
-  </section>
+
+  <!-- ══════════════════════════════
+       CHARCOAL WORKS
+  ══════════════════════════════ -->
+  <div class="section-label">
+    <span>Charcoal Works</span>
+    <div class="section-label-line"></div>
+  </div>
+
+  <div class="proj-grid-3">
+
+    <!-- Tip of the Iceberg -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/TipoftheIceberg.jpg" alt="Tip of the Iceberg">
+        <div class="proj-placeholder placeholder-char"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Tip of the Iceberg</span>
+        </div>
+        <p class="proj-card-desc">Exploring climate change implications.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Charcoal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Father's Hard Work -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/portraitofmyfather.jpg" alt="Father's Hard Work">
+        <div class="proj-placeholder placeholder-char"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Father's Hard Work</span>
+        </div>
+        <p class="proj-card-desc">Wrinkles that highlight his perseverance over the years.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Charcoal</span>
+          <span class="proj-tag">Portrait</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Swing -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/TheSwingIUsedtoPlayAt.jpg" alt="The Swing I Used to Play At">
+        <div class="proj-placeholder placeholder-char"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">The Swing I Used to Play At</span>
+        </div>
+        <p class="proj-card-desc">The torn-down tree where I used to play on the swing.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Charcoal</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════
+       MIXED MEDIA
+  ══════════════════════════════ -->
+  <div class="section-label">
+    <span>Mixed Media</span>
+    <div class="section-label-line"></div>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- Bathroom in 2050 -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/bathroomin2050.png" alt="Bathroom in 2050">
+        <div class="proj-placeholder placeholder-mixed"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Bathroom in 2050</span>
+        </div>
+        <p class="proj-card-desc">Made on cardboard with hot glue and color pencil.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Cardboard</span>
+          <span class="proj-tag">Hot Glue</span>
+          <span class="proj-tag">Color Pencil</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Happy Chinese New Year -->
+    <div class="proj-card">
+      <div class="proj-preview">
+        <img class="proj-thumb" src="files/HappyChineseNewYear.jpg" alt="Happy Chinese New Year">
+        <div class="proj-placeholder placeholder-mixed"></div>
+        <div class="proj-overlay">
+          <div class="proj-badge"><span class="proj-dot"></span> View</div>
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-top">
+          <span class="proj-card-title">Happy Chinese New Year</span>
+        </div>
+        <p class="proj-card-desc">Made with hot glue, watercolor, and color pencil.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Watercolor</span>
+          <span class="proj-tag">Hot Glue</span>
+          <span class="proj-tag">Color Pencil</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer id="footer">
+    I'm glad you're here. Explore the other tabs to learn more.
+  </footer>
+
+  <script>
+    // Scroll reveal for cards + section labels
+    const revealEls = document.querySelectorAll('.proj-card, .section-label');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
 </body>
 </html>
