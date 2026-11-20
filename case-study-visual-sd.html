@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual SD Website Redesign | Isabelle Wu</title>
+  <meta name="description" content="Case study: redesigning the website for Visual SD, a North Park art studio and supply shop, into a simple hub for events, sign-ups and shopping.">
+  <link rel="icon" type="image/png" href="files/logo.png">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #111213; --surface: #181a1b; --card: #1e2022;
+      --border: #2a2d30; --border-hover: #3d4145;
+      --text: #c8cdd2; --text-dim: #8b929a; --white: #eef0f2;
+      --accent: #9db4c0; --purple: #a259ff; --purple-light: rgba(162,89,255,0.12);
+      --radius: 14px; --ease: 0.22s cubic-bezier(0.4,0,0.2,1); --nav-height: 64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+      line-height: 1.7; overflow-x: hidden;
+    }
+
+    /* NAV (same as index.html) */
+    .navbar-style {
+      background: rgba(17,18,19,0.85) !important; backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+      min-height: var(--nav-height); padding: 0 2.5rem;
+    }
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600;
+      color: var(--white) !important; letter-spacing: 0.06em;
+    }
+    .navbar-collapse { padding-bottom: 0.75rem; }
+    .nav-link {
+      font-size: 0.78rem !important; font-weight: 400 !important; letter-spacing: 0.12em !important;
+      text-transform: uppercase !important; color: var(--text-dim) !important;
+      padding: 0.4rem 1rem !important; transition: color var(--ease) !important; position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -2px; left: 1rem; right: 1rem; height: 1px;
+      background: var(--accent); transform: scaleX(0); transition: transform var(--ease); transform-origin: left;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--white) !important; }
+    .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+    .navbar-toggler { border-color: var(--border) !important; }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(200,205,210,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* LAYOUT */
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+    .back {
+      display: inline-block; margin-top: calc(var(--nav-height) + 2rem);
+      font-size: 0.85rem; color: var(--text-dim); text-decoration: none; transition: color var(--ease);
+    }
+    .back:hover { color: var(--white); text-decoration: none; }
+
+    /* HERO */
+    .hero { padding: 2rem 0 3rem; border-bottom: 1px solid var(--border); }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif; font-size: clamp(2.4rem, 6.5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.2rem;
+    }
+    .lede { font-size: 1.1rem; font-weight: 300; max-width: 62ch; color: var(--text); }
+    .meta { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-top: 2rem; }
+    .meta dt { font-size: 0.75rem; color: var(--text-dim); font-weight: 400; }
+    .meta dd { font-family: 'Montserrat', sans-serif; font-size: 0.92rem; font-weight: 500; color: var(--white); }
+
+    /* SECTIONS */
+    section { padding: 3.5rem 0 0.5rem; }
+    h2 {
+      font-family: 'Montserrat', sans-serif; font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700; letter-spacing: -0.01em; color: var(--white); margin-bottom: 1rem;
+    }
+    h3 { font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin: 1.6rem 0 0.5rem; }
+    p, li { max-width: 68ch; }
+    p + p { margin-top: 0.9rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.35rem; }
+    .hmw {
+      margin-top: 1.4rem; padding: 1.2rem 1.4rem; background: var(--card);
+      border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius);
+      font-family: 'Montserrat', sans-serif; font-size: 1.02rem; font-weight: 500; color: var(--white); line-height: 1.6;
+    }
+
+    /* QUOTES */
+    .quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 1.2rem; }
+    blockquote {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.2rem 1.3rem; font-size: 0.98rem; font-weight: 300; color: var(--white);
+    }
+    .note { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.8rem; }
+
+    /* TWO-COLUMN LISTS */
+    .cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.3rem; }
+    .panel h3 { margin-top: 0; }
+    .panel ul { font-size: 0.92rem; }
+
+    /* IMAGE SLOTS */
+    .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 1.4rem; }
+    .shots.one { grid-template-columns: 1fr; }
+    figure { margin: 0; }
+    .frame {
+      position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; background: linear-gradient(135deg, #1e2022 0%, #25292c 100%);
+      display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center;
+      font-size: 0.78rem; color: var(--text-dim);
+    }
+    .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+    figcaption { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.5rem; }
+
+    .tag {
+      display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 0 6px 6px 0;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-dim);
+    }
+    .tag.purple { background: var(--purple-light); border-color: rgba(162,89,255,0.25); color: #c49aff; }
+
+    .next { margin: 4rem 0 0; padding: 2.5rem 0; border-top: 1px solid var(--border); text-align: center; }
+    .next a { color: var(--accent); }
+    #footer {
+      border-top: 1px solid var(--border); padding: 2.5rem 3rem; text-align: center;
+      font-size: 0.82rem; font-weight: 300; color: var(--text-dim); letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 900px) {
+      .navbar-style { padding: 0 1.5rem; }
+      .quotes, .cols, .cols-3, .shots { grid-template-columns: 1fr; }
+      .meta { gap: 1.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar-container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-style">
+      <a class="navbar-brand" href="index.html">Isabelle Wu</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="projects.html" class="nav-link">More</a></li>
+          <li class="nav-item"><a href="https://drive.google.com/file/d/1rFc9STaBtEEP-4EJWbepG_VdhexT99zh/view?usp=sharing" target="_blank" rel="noopener" class="nav-link">Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <main class="wrap">
+    <a class="back" href="index.html">&larr; Back to all work</a>
+
+    <header class="hero">
+      <h1>Visual SD<br>website redesign</h1>
+      <p class="lede">Visual SD is an art and supply studio in North Park. I redesigned its website from a confusing event board into a simple hub for events, sign-ups and shopping.</p>
+      <dl class="meta">
+        <div><dt>Client</dt><dd>Visual SD (Jason Gould)</dd></div>
+        <div><dt>Role</dt><dd>UI/UX Designer</dd></div>
+        <div><dt>Focus</dt><dd>Research, IA, wireframes, hi-fi design</dd></div>
+      </dl>
+    </header>
+
+    <section id="problem">
+      <h2>The problem</h2>
+      <p>Jason Gould founded Visual SD, a studio that hosts events, workshops and artist open calls and also sells art supplies. His website worked as a placeholder board of current events, and he tracked registration payments by hand.</p>
+      <p>Overall the site was confusing, overwhelming and not functional for visitors.</p>
+      <div class="hmw">How might we design and develop a minimal, functional, centralized platform that serves as a digital hub for Visual SD’s gallery, studio, retail and community activities?</div>
+    </section>
+
+    <section id="research">
+      <h2>Research with Jason</h2>
+      <p>I started by interviewing Jason about how events and registration work today.</p>
+      <ul class="mt-3">
+        <li>How do you currently collect registration for gallery events? Where is the friction, and what makes it easy?</li>
+        <li>How often do you realistically want to update the website yourself?</li>
+      </ul>
+      <h3>What I learned</h3>
+      <ul>
+        <li>Events are central, but registering through Instagram and Venmo creates friction.</li>
+        <li>The website should handle event sign-ups and act as the second stop after someone finds Visual SD on Instagram.</li>
+      </ul>
+    </section>
+
+    <section id="testing">
+      <h2>Testing the existing site</h2>
+      <p>I ran usability tests on the current site and asked people to think aloud. A few quotes stood out.</p>
+      <div class="quotes">
+        <blockquote>“There’s too much going on... I don’t know where to look.”</blockquote>
+        <blockquote>“I think they can add a little more information about the art that they’re showing off.”</blockquote>
+        <blockquote>“There’s no words on this page at all, so I don’t know what you sell.”</blockquote>
+        <blockquote>“The photos could maybe be put together differently.”</blockquote>
+      </div>
+      <div class="cols" style="margin-top:2rem">
+        <div class="panel">
+          <h3>Pain points</h3>
+          <ul><li>Poor layout</li><li>Looks unfinished and amateur</li><li>Inefficient use of space</li></ul>
+        </div>
+        <div class="panel">
+          <h3>Opportunities</h3>
+          <ul><li>Show who they are as a store</li><li>Clarify the structure and information</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="competitors">
+      <h2>Competitive analysis</h2>
+      <p>I compared Visual SD with two other local and graffiti-adjacent brands to see what a strong identity and navigation look like.</p>
+      <div class="cols cols-3" style="margin-top:1.2rem">
+        <div class="panel"><h3>Visual SD</h3><ul><li>Strong local identity</li><li>Strong social media presence</li></ul></div>
+        <div class="panel"><h3>Krink</h3><ul><li>Strong visual identity</li><li>Art style similar to Visual SD (graffiti)</li></ul></div>
+        <div class="panel"><h3>Art on 30th</h3><ul><li>Intuitive website navigation</li><li>Direct competitor in the North Park area</li></ul></div>
+      </div>
+      <div class="shots one">
+        <figure>
+          <div class="frame">Add image: files/visualsd-competitors.png<img src="files/visualsd-competitors.png" alt="Screenshots comparing the Visual SD, Krink and Art on 30th websites" onerror="this.style.display='none'"></div>
+          <figcaption>Side-by-side look at the three sites.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="design">
+      <h2>From research to design</h2>
+      <h3>Moodboard</h3>
+      <p>I gathered references that match Visual SD’s graffiti-influenced, street-art personality.</p>
+      <div class="shots one">
+        <figure>
+          <div class="frame">Add image: files/visualsd-moodboard.png<img src="files/visualsd-moodboard.png" alt="Moodboard of street art and graffiti references for Visual SD" onerror="this.style.display='none'"></div>
+        </figure>
+      </div>
+
+      <h3>Information architecture</h3>
+      <p>I reorganized the site so people can find events, the shop and the studio in one or two clicks.</p>
+      <div class="shots one">
+        <figure>
+          <div class="frame">Add image: files/visualsd-ia.png<img src="files/visualsd-ia.png" alt="Site map showing the new structure of the Visual SD website" onerror="this.style.display='none'"></div>
+        </figure>
+      </div>
+
+      <h3>Low-fidelity wireframes</h3>
+      <div class="shots">
+        <figure>
+          <div class="frame">Add image: files/visualsd-lofi-1.png<img src="files/visualsd-lofi-1.png" alt="Low-fidelity wireframe of the Visual SD home page" onerror="this.style.display='none'"></div>
+        </figure>
+        <figure>
+          <div class="frame">Add image: files/visualsd-lofi-2.png<img src="files/visualsd-lofi-2.png" alt="Low-fidelity wireframe of the Visual SD events page" onerror="this.style.display='none'"></div>
+        </figure>
+      </div>
+
+      <h3>High-fidelity design</h3>
+      <p>A second round of usability testing raised concerns about readability, which I fixed before finalizing the design.</p>
+      <div class="shots one">
+        <figure>
+          <div class="frame">Add image: files/visualsd-hifi.png<img src="files/visualsd-hifi.png" alt="High-fidelity design of the redesigned Visual SD website" onerror="this.style.display='none'"></div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="reflection">
+      <h2>Reflection</h2>
+      <ul>
+        <li>Spend more time with real users during research and testing.</li>
+        <li>Create many prototypes instead of polishing one too early.</li>
+        <li>Ask for feedback early and often.</li>
+      </ul>
+      <p style="margin-top:1rem"><strong style="color:var(--white)">Constraint:</strong> implementation and the hand-off process.</p>
+      <div style="margin-top:1.2rem">
+        <span class="tag purple">Figma</span><span class="tag">UX Research</span><span class="tag">Usability Testing</span><span class="tag">Information Architecture</span><span class="tag">Wireframing</span>
+      </div>
+    </section>
+
+    <div class="next">
+      <p style="margin:0 auto">Thanks for reading. Have questions? <a href="about.html">Get in touch</a> or <a href="index.html">see more work</a>.</p>
+    </div>
+  </main>
+
+  <footer id="footer">I'm glad you're here. Explore the other tabs to learn more.</footer>
+
+</body>
+</html>
