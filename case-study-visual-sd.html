@@ -110,31 +110,14 @@
     .panel ul { font-size: 0.92rem; }
 
     /* IMAGE SLOTS */
-    .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 1.4rem; }
+    .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 1.4rem; align-items: start; }
     .shots.one { grid-template-columns: 1fr; }
     figure { margin: 0; }
     .frame {
-    aspect-ratio: auto !important;
-    display: block !important;
-    padding: 0 !important;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--card) !important;
-  }
-  .frame img {
-    position: static !important;
-    display: block;
-    width: 100%;
-    height: auto !important;
-    object-fit: contain !important;
-  }
-  .shots { align-items: start; }
-
-    .tag {
-      display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 0 6px 6px 0;
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-dim);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; background: var(--card);
     }
+    .frame img { display: block; width: 100%; height: auto; }
     .tag.purple { background: var(--purple-light); border-color: rgba(162,89,255,0.25); color: #c49aff; }
 
     .next { margin: 4rem 0 0; padding: 2.5rem 0; border-top: 1px solid var(--border); text-align: center; }
@@ -246,7 +229,7 @@
       <p>I gathered references that match Visual SD’s graffiti-influenced, street-art personality.</p>
       <div class="shots one">
         <figure>
-          <div class="frame">Add image: files/visualsd-moodboard.png<img src="files/visualsd-moodboard.png" alt="Moodboard of street art and graffiti references for Visual SD" onerror="this.style.display='none'"></div>
+          <div class="frame"><img src="files/visualsd-moodboard.png" alt="Moodboard of street art and graffiti references for Visual SD"></div>
         </figure>
       </div>
 
@@ -254,17 +237,17 @@
       <p>I reorganized the site so people can find events, the shop and the studio in one or two clicks.</p>
       <div class="shots one">
         <figure>
-          <div class="frame">Add image: files/visualsd-ia.png<img src="files/visualsd-ia.png" alt="Site map showing the new structure of the Visual SD website" onerror="this.style.display='none'"></div>
+          <div class="frame"><img src="files/visualsd-ia.png" alt="Site map showing the new structure of the Visual SD website"></div>
         </figure>
       </div>
 
       <h3>Low-fidelity wireframes</h3>
       <div class="shots">
         <figure>
-          <div class="frame">Add image: files/visualsd-lofi-1.png<img src="files/visualsd-lofi-1.png" alt="Low-fidelity wireframe of the Visual SD home page" onerror="this.style.display='none'"></div>
+          <div class="frame"><img src="files/visualsd-lofi-1.png" alt="Low-fidelity wireframe of the Visual SD home page"></div>
         </figure>
         <figure>
-          <div class="frame">Add image: files/visualsd-lofi-2.png<img src="files/visualsd-lofi-2.png" alt="Low-fidelity wireframe of the Visual SD events page" onerror="this.style.display='none'"></div>
+          <div class="frame"><img src="files/visualsd-lofi-2.png" alt="Low-fidelity wireframe of the Visual SD events page"></div>
         </figure>
       </div>
 
@@ -272,7 +255,7 @@
       <p>A second round of usability testing raised concerns about readability, which I fixed before finalizing the design.</p>
       <div class="shots one">
         <figure>
-          <div class="frame">Add image: files/visualsd-hifi.png<img src="files/visualsd-hifi.png" alt="High-fidelity design of the redesigned Visual SD website" onerror="this.style.display='none'"></div>
+          <div class="frame"><img src="files/visualsd-hifi.png" alt="High-fidelity design of the redesigned Visual SD website"></div>
         </figure>
       </div>
     </section>
